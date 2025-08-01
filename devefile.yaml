@@ -5,7 +5,7 @@ projects:
   - name: simple-ansible-devspaces
     git:
       remotes:
-        origin: ssh://git@github.com:kolliash/simple-ansible-devspaces.git
+        origin: https://github.com/kolliash/simple-ansible-devspaces.git
       checkoutFrom:
         revision: main
 
