@@ -1,0 +1,8 @@
+---
+- name: Dev Spaces Test
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Print a Confirmation Message
+      debug:
+        msg: "Ansible is running inside OpenShift Dev Spaces!"
