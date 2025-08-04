@@ -12,13 +12,30 @@ components:
   - name: universal-developer-image
     container:
       image: registry.redhat.io/devspaces/udi-rhel8:latest
-      memoryLimit: 2Gi
+      memoryLimit: 4Gi
       mountSources: true
 commands:
-  - id: echo-test
+  - id: install-ansible
     exec:
       component: universal-developer-image
-      commandLine: echo "Devfile is working!"
+      commandLine: dnf install -y ansible-core
+      workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
       group:
         kind: build
         isDefault: true
+
+  - id: check-ansible
+    exec:
+      component: universal-developer-image
+      commandLine: ansible --version
+      workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
+      group:
+        kind: build
+
+  - id: run-test-playbook
+    exec:
+      component: universal-developer-image
+      commandLine: ansible-playbook playbooks/playbook.yml
+      workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
+      group:
+        kind: build
