@@ -9,32 +9,24 @@ projects:
       checkoutFrom:
         revision: main
 components:
-  - name: universal-developer-image
+  - name: ansible-dev-image
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8:latest
+      image: quay.io/ansible/creator-ee:latest
       memoryLimit: 4Gi
       mountSources: true
 commands:
-  - id: install-ansible
+  - id: check-ansible
     exec:
-      component: universal-developer-image
-      commandLine: dnf install -y ansible-core
+      component: ansible-dev-image
+      commandLine: ansible --version
       workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
       group:
         kind: build
         isDefault: true
 
-  - id: check-ansible
-    exec:
-      component: universal-developer-image
-      commandLine: ansible --version
-      workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
-      group:
-        kind: build
-
   - id: run-test-playbook
     exec:
-      component: universal-developer-image
+      component: ansible-dev-image
       commandLine: ansible-playbook playbooks/playbook.yml
       workingDir: ${PROJECTS_ROOT}/simple-ansible-devspaces
       group:
